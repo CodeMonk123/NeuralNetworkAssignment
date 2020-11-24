@@ -48,7 +48,7 @@ if __name__ == "__main__":
     training_loss = regressor.fit(X=X_train, y=y_train)
     y_predict = regressor.predict(X_test)
     y_predict = np.reshape(y_predict, (1000,1000))
-    predict_error = np.abs(np.reshape(y_test,(1000,1000)) - y_predict)**2
+    predict_error = np.abs(np.reshape(y_test,(1000,1000)) - y_predict)
 
     X,Y = np.meshgrid(X_test1,X_test2)
     plot_surf(X,Y, y_predict, './predict.png')
