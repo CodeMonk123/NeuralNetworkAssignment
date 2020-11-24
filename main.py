@@ -44,7 +44,7 @@ def plot_loss(training_loss:[float]):
     
 
 if __name__ == "__main__":
-    regressor = NNRegressor(max_epochs=1000)
+    regressor = NNRegressor(max_epochs=1000, learning_rate=0.001)
     training_loss = regressor.fit(X=X_train, y=y_train)
     y_predict = regressor.predict(X_test)
     y_predict = np.reshape(y_predict, (1000,1000))
