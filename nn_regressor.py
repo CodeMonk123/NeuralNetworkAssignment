@@ -29,7 +29,7 @@ class NNRegressor:
         self.hidden_layer = np.random.normal(size=(self.hidden_size, item_length)) # (hidden_size, input_length +1)
         self.output_layer = np.random.normal(size=(self.hidden_size, 1)) # (hidden_size, 1)
         self.output_bias = random.random()
-        
+        training_loss = []
         
         for epoch in range(self.max_epochs):
             total_error = 0
@@ -65,9 +65,11 @@ class NNRegressor:
                 gradient_hidden_weight *= derivative_activate.T #(hidden_size, batch_size)
                 gradient_hidden_weight = np.dot(gradient_hidden_weight, item_X) #(hidden, input_length + 1)
                 self.hidden_layer -= self.learning_rate * gradient_hidden_weight
-                
+            
+            training_loss.append(total_error / len(data_loader))
             print("[Epoch {:>3d}/{}]: MSE Training Loss: {:.8f}.".format(epoch + 1, self.max_epochs, total_error / len(data_loader)))
-                
+        return training_loss
+        
     def predict(self, X: np.array):
         inX = np.c_[X, np.ones(shape=(len(X), 1))]
         hidden_output = np.dot(inX, self.hidden_layer.T)
